@@ -10,16 +10,16 @@
       },
       "videos": [
         {
+          "titulo": "SEO com React",
+          "url": "https://www.youtube.com/watch?v=c8mVlakBESE"
+        },
+        {
           "titulo": "01 ReactJS para iniciantes - Começando um projeto do ZERO com create react app",
           "url": "https://youtu.be/4juIVSWo-pw"
         },
         {
           "titulo": "O que faz uma desenvolvedora front-end? #HipstersPontoTube",
           "url": "https://www.youtube.com/watch?v=ZY3-MFxVdEw"
-        },
-        {
-          "titulo": "SEO com React",
-          "url": "https://www.youtube.com/watch?v=c8mVlakBESE"
         },
         {
           "titulo": "Componentização com VanillaJS #AluraMais",
