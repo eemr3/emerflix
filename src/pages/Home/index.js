@@ -1,13 +1,12 @@
 import React from 'react'
+import data from '../../data/dados_iniciais.json'
 
-import data from './data/dados_iniciais.json'
+import Header from '../../components/header'
+import BannerMain from '../../components/BannerMain'
+import Carrousel from '../../components/Carousel'
+import Footer from '../../components/Footer'
 
-import Header from './components/header'
-import BannerMain from './components/BannerMain'
-import Carrousel from './components/Carousel'
-import Footer from './components/Footer'
-
-function App() {
+function Home() {
   return (
     <div style={{ backgrounColor: '#141414' }}>
       <Header />
@@ -24,4 +23,4 @@ function App() {
   )
 }
 
-export default App
+export default Home

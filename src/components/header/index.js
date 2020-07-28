@@ -1,18 +1,28 @@
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 import LogoApp from '../LogoApp'
 import './menu.css'
-import ButtonLink from '../buttonLink'
+
+import Button from '../Button'
 
 function Header() {
+  const location = useLocation()
+
   return (
     <nav className="menu">
-      <a href="/">
+      <Link to="/">
         <LogoApp />
-      </a>
-      <ButtonLink href="/" className="ButtonLink">
-        Novo vídeo
-      </ButtonLink>
+      </Link>
+      {location.pathname === '/cadastro/video' ? (
+        <Button as={Link} to="/cadastro/categoria" className="ButtonLink">
+          Nova categoria
+        </Button>
+      ) : (
+        <Button as={Link} to="/cadastro/video" className="ButtonLink">
+          Novo vídeo
+        </Button>
+      )}
     </nav>
   )
 }
