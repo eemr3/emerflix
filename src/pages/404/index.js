@@ -1,26 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import Iframe from 'react-iframe'
 import PageDefault from '../../components/PageDefault'
 
 const Erro = styled.div`
-  h1 {
-    font-size: 4em;
-    text-align: center;
-  }
-
   div {
-    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
     text-align: center;
+
+    h1 {
+      margin-bottom: 70px;
+    }
   }
 `
 const Erro404 = () => {
+  const url = 'https://mariosouto.com/flappy-bird-devsoutinho/'
   return (
     <PageDefault>
       <Erro>
-        <h1>Opss! página não encontrada.</h1>
         <div>
-          <Link to="/">Voltar para a home</Link>
+          <h1>Opss! Página não encontrada</h1>
+          <Iframe url={url} width="500px" height="500px" overflow="hidden" />
         </div>
       </Erro>
     </PageDefault>
