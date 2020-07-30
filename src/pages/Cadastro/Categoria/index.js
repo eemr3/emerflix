@@ -62,11 +62,11 @@ function Categoria() {
         />
 
         <FormField
-          id="text"
+          id="descricao"
           label="Descrição da Categoria"
-          name="text"
+          name="descricao"
           type="textarea"
-          value={values.link_extra.text}
+          value={values.descricao}
           onChange={handleChange}
         />
 
@@ -98,7 +98,7 @@ function Categoria() {
             return (
               <tr key={index}>
                 <td>{category.titulo}</td>
-                <td>{category.link_extra.text}</td>
+                <td>{category.descricao}</td>
                 <td>{category.cor}</td>
               </tr>
             )
