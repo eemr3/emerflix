@@ -1,20 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 
 import PageDefault from '../../../components/PageDefault'
 import Button from '../../../components/Button'
-import Form from './styles'
 import FormField from '../../../components/FormField'
-
 function Categoria() {
   const initialValues = {
-    name: '',
-    description: '',
-    color: '',
-    code: '',
+    titulo: '',
+    cor: '',
+    link_extra: {
+      text: '',
+      url: '',
+    },
+    texte: '',
   }
 
   const [categories, setCategories] = useState([])
   const [values, setValues] = useState(initialValues)
+
+  useEffect(() => {
+    const URL = 'http://localhost:8080/categorias'
+
+    fetch(URL).then(async (response, reject) => {
+      const responseServer = await response.json()
+      setCategories([...responseServer])
+    })
+  }, [])
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -28,59 +39,116 @@ function Categoria() {
   }
 
   function handleChange(event) {
-    setValue(event.target.getAttribute('name'), event.target.value)
+    const { name, value } = event.target
+    setValue(name, value)
   }
+
+  const { titulo, cor } = values
 
   return (
     <PageDefault>
-      <Form onSubmit={handleSubmit}>
-        <h1>Nova categoria: {values.name}</h1>
+      <form onSubmit={handleSubmit}>
+        <h1>Nova categoria: {values.url}</h1>
         <FormField
-          id="name"
+          id="titulo"
           label="Nome da Categoria"
-          name="name"
+          name="titulo"
           type="text"
-          value={values.name}
-          onChange={handleChange}
-        />
-        <FormField
-          id="description"
-          label="Descrição da categoria"
-          name="description"
-          type="text"
-          value={values.description}
+          value={titulo}
           onChange={handleChange}
         />
 
         <FormField
-          label="Cor da categoria"
-          name="color"
+          id="text"
+          label="Nome da Categoria"
+          name="text"
+          type="textarea"
+          value={values.link_extra.text}
+          onChange={handleChange}
+        />
+
+        <FormField
+          id="cor"
+          label="Cor"
+          name="cor"
           type="color"
-          value={values.color}
+          value={cor}
           onChange={handleChange}
-          className="color-categ"
         />
 
         <FormField
-          id="code"
-          name="code"
+          id="url"
+          label="Url"
+          name="url"
           type="text"
-          value={values.code}
+          value={values.link_extra.url}
           onChange={handleChange}
-          label="Código de segurança"
         />
-        <div>
+        <ButtonCategory>
           <Button className="btn-salvar">Salvar</Button>
-          <Button className="btn-limpar">Limpar</Button>
-        </div>
-      </Form>
-      <ul>
-        {categories.map((category, index) => {
-          return <li key={index}>{category.name}</li>
-        })}
-      </ul>
+          <Button className="btn-limpar" type="button">
+            Limpar
+          </Button>
+        </ButtonCategory>
+      </form>
+      <Table>
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Descrião</th>
+            <th>Cor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {categories.map((category, index) => {
+            return (
+              <tr key={index}>
+                <td>{category.titulo}</td>
+                <td>{category.link_extra.text}</td>
+                <td>{category.cor}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </Table>
     </PageDefault>
   )
 }
 
 export default Categoria
+
+const ButtonCategory = styled.div`
+  .btn-salvar {
+    background: var(--primary);
+    width: 180px;
+    height: 54px;
+    border: none;
+    margin: 5px 15px 20px 0;
+  }
+  .btn-limpar {
+    background: var(--blackLighter);
+    width: 180px;
+    height: 54px;
+    border: none;
+    margin: 5px 15px 20px 0;
+  }
+`
+const Table = styled.table`
+  border: 1px solid #2a7ae4;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+
+  thead tr th {
+    padding: 15px;
+    border: 1px solid #2a7ae4;
+  }
+  thead {
+    border-bottom: 1px solid #2a7ae4;
+  }
+  td,
+  th {
+    text-align: left;
+    padding: 10px;
+  }
+`
