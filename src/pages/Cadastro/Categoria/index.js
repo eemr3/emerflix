@@ -19,12 +19,17 @@ function Categoria() {
   const [values, setValues] = useState(initialValues)
 
   useEffect(() => {
-    const URL = 'http://localhost:8080/categorias'
-
-    fetch(URL).then(async (response, reject) => {
-      const responseServer = await response.json()
-      setCategories([...responseServer])
-    })
+    if (window.location.href.includes('localhost')) {
+      const URL = 'https://emerflix.herokuapp.com/categorias'
+      fetch(URL).then(async (response) => {
+        if (response.ok) {
+          const resposta = await response.json()
+          setCategories(resposta)
+          return
+        }
+        throw new Error('Não foi possível pegar os dados')
+      })
+    }
   }, [])
 
   function handleSubmit(event) {
