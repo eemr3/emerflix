@@ -7,29 +7,27 @@ import FormField from '../../../components/FormField'
 function Categoria() {
   const initialValues = {
     titulo: '',
-    cor: '',
+    cor: '#FF8847',
     link_extra: {
       text: '',
       url: '',
     },
-    texte: '',
   }
 
   const [categories, setCategories] = useState([])
   const [values, setValues] = useState(initialValues)
 
+  const URL = window.location.hostname.includes('localhost')
+    ? 'http://localhost:8080/categorias'
+    : 'https://emerflix.herokuapp.com/categorias'
+
   useEffect(() => {
-    if (window.location.href.includes('localhost')) {
-      const URL = 'https://emerflix.herokuapp.com/categorias'
-      fetch(URL).then(async (response) => {
-        if (response.ok) {
-          const resposta = await response.json()
-          setCategories(resposta)
-          return
-        }
-        throw new Error('Não foi possível pegar os dados')
-      })
-    }
+    fetch(URL).then(async (responseServer) => {
+      const response = await responseServer.json()
+
+      setCategories([...response])
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function handleSubmit(event) {
@@ -65,7 +63,7 @@ function Categoria() {
 
         <FormField
           id="text"
-          label="Nome da Categoria"
+          label="Descrição da Categoria"
           name="text"
           type="textarea"
           value={values.link_extra.text}
@@ -78,15 +76,6 @@ function Categoria() {
           name="cor"
           type="color"
           value={cor}
-          onChange={handleChange}
-        />
-
-        <FormField
-          id="url"
-          label="Url"
-          name="url"
-          type="text"
-          value={values.link_extra.url}
           onChange={handleChange}
         />
         <ButtonCategory>
