@@ -11,7 +11,7 @@ function FormField({
   onChange,
 }) {
   return (
-    <div input-container>
+    <div className="input-container">
       <label htmlFor={id}>{label}</label>
       <input
         id={id}
