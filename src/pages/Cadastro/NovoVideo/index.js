@@ -1,15 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
+import useForm from '../../../hooks'
 import PageDefault from '../../../components/PageDefault'
 import Button from '../../../components/Button'
-
+import videosRepository from '../../../repositories/videos'
+import categoriasRepository from '../../../repositories/categorias'
 import FormField from '../../../components/FormField'
 
 function NovoVideo() {
+  const history = useHistory()
+  const [categorias, setCategorias] = useState([])
+  const categoryTitles = categorias.map(({ titulo }) => titulo)
+  const { values, handleChange, clearForm } = useForm({
+    titulo: '',
+    url: '',
+    categoria: '',
+  })
+  useEffect(() => {
+    categoriasRepository.getAll().then((categoriasFormServer) => {
+      setCategorias(categoriasFormServer)
+    })
+  }, [])
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    const categoriaEscolhida = categorias.find((categoria) => {
+      return categoria.titulo === values.categoria
+    })
+    videosRepository
+      .create({
+        titulo: values.titulo,
+        url: values.url,
+        categoriaId: categoriaEscolhida.id,
+      })
+      .then(() => {
+        history.push('/')
+      })
+  }
+
+  function handleClear(event) {
+    event.preventDefault()
+    clearForm()
+  }
+
   return (
     <PageDefault>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSubmit}>
         <h1>Novo vídeo</h1>
 
         <FormField
@@ -17,59 +56,36 @@ function NovoVideo() {
           label="Título do vídeo"
           name="titulo"
           type="text"
-          // value={titulo}
-          // onChange={handleChange}
+          value={values.titulo}
+          onChange={handleChange}
         />
 
         <FormField
-          id="link"
+          id="url"
           label="Link do vídeo"
-          name="link"
+          name="url"
           type="text"
-          // value={values.descricao}
-          // onChange={handleChange}
+          value={values.url}
+          onChange={handleChange}
         />
 
         <FormField
-          id="image"
-          label="Link da imagem do vídeo"
-          name="image"
-          type="text"
-          // value={cor}
-          // onChange={handleChange}
-        />
-        <FormField
-          id="image"
+          id="categoria"
           label="Escolha um acategoria"
-          name="image"
+          name="categoria"
           type="text"
-          // value={cor}
-          // onChange={handleChange}
+          value={values.categoria}
+          onChange={handleChange}
+          suggestions={categoryTitles}
         />
-        <FormField
-          id="descrição"
-          label="Descrição"
-          name="descrição"
-          type="textarea"
-          // value={cor}
-          // onChange={handleChange}
-        />
-        <FormField
-          id="code"
-          label="Código de seguranção"
-          name="code"
-          type="text"
-          // value={cor}
-          // onChange={handleChange}
-        />
-
         <ButtonCategory>
           <Button className="btn-salvar">Salvar</Button>
-          <Button className="btn-limpar" type="button">
+          <Button className="btn-limpar" onClick={handleClear}>
             Limpar
           </Button>
         </ButtonCategory>
       </form>
+      <ToastContainer />
     </PageDefault>
   )
 }

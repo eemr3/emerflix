@@ -1,26 +1,62 @@
-import React from 'react'
-import data from '../../data/dados_iniciais.json'
+import React, { useEffect, useState } from 'react'
+import PacmanLoader from 'react-spinners/PacmanLoader'
+import styled from 'styled-components'
 
-import Header from '../../components/header'
+import PageDefault from '../../components/PageDefault'
 import BannerMain from '../../components/BannerMain'
 import Carrousel from '../../components/Carousel'
-import Footer from '../../components/Footer'
+
+import categoriasRepository from '../../repositories/categorias'
 
 function Home() {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    categoriasRepository
+      .getAllWithVideos()
+      .then((categoriasComVideos) => {
+        setData(categoriasComVideos)
+      })
+
+      .catch((err) => {
+        console.log(err.message)
+      })
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <div style={{ backgrounColor: '#141414' }}>
-      <Header />
-      <BannerMain
-        videoTitle={data.categorias[0].videos[0].titulo}
-        url={data.categorias[0].videos[0].url}
-        videoDescription={''}
-      />
-      {data.categorias.map((categoria) => (
-        <Carrousel key={categoria.cor} category={categoria} />
-      ))}
-      <Footer />
-    </div>
+    <PageDefault paddingAll={0} style={{ backgrounColor: '#141414' }}>
+      {data.length === 0 && (
+        <Div>
+          <PacmanLoader size={25} color={'#DC1A28'} />
+        </Div>
+      )}
+
+      {data.map((category, index) => {
+        if (index === 0) {
+          return (
+            <div key={category.id}>
+              <BannerMain
+                videoTitle={data[0].videos[0].titulo}
+                url={data[0].videos[0].url}
+                videoDescription={data[0].descricao}
+              />
+              <Carrousel ignoreFirsVideo category={data[0]} />
+            </div>
+          )
+        }
+
+        return <Carrousel key={category.id} category={category} />
+      })}
+    </PageDefault>
   )
 }
 
 export default Home
+
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 50vh;
+  align-items: center;
+`

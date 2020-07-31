@@ -1,5 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import 'react-toastify/dist/ReactToastify.css'
 
 import Header from '../header'
 import Footer from '../Footer'
@@ -11,13 +12,16 @@ const Main = styled.main`
   padding-top: 50px;
   padding-left: 5%;
   padding-right: 5%;
+  ${({ paddingAll }) => css`
+    padding: ${paddingAll}} 
+  `}
 `
 
-const PageDefault = ({ children }) => {
+const PageDefault = ({ children, paddingAll }) => {
   return (
     <>
       <Header />
-      <Main>{children}</Main>
+      <Main paddingAll={paddingAll}>{children}</Main>
       <Footer />
     </>
   )

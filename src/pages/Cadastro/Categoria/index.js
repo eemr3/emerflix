@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { MdDelete, MdModeEdit } from 'react-icons/md'
 import PacmanLoader from 'react-spinners/PacmanLoader'
+import { ToastContainer, toast } from 'react-toastify'
 
+import config from '../../../config'
+import categoryRepository from '../../../repositories/categorias'
 import useForm from '../../../hooks'
 import PageDefault from '../../../components/PageDefault'
 import Button from '../../../components/Button'
@@ -20,12 +23,8 @@ function Categoria() {
   const { values, handleChange, clearForm } = useForm(initialValues)
   const [categories, setCategories] = useState([])
 
-  const URL = window.location.hostname.includes('localhost')
-    ? 'http://localhost:8080/categorias'
-    : 'https://emerflix.herokuapp.com/categorias'
-
   useEffect(() => {
-    fetch(URL).then(async (responseServer) => {
+    fetch(`${config.URL_APP}/categorias`).then(async (responseServer) => {
       const response = await responseServer.json()
 
       setCategories([...response])
@@ -35,12 +34,39 @@ function Categoria() {
 
   function handleSubmit(event) {
     event.preventDefault()
-
-    setCategories([...categories, values])
-    clearForm()
+    try {
+      categoryRepository
+        .create({
+          titulo: values.titulo,
+          cor: values.cor,
+          descricao: values.descricao,
+        })
+        .then(() => {
+          setCategories([...categories, values])
+          clearForm()
+          toast.success('Categoria cadastrada com sucesso!')
+        })
+    } catch (error) {
+      toast.error('Não foi possível cadastar a caterdoria.')
+    }
   }
 
-  function handleDelete() {}
+  async function handleDelete(id) {
+    try {
+      await fetch(`${config.URL_APP}/categorias/${id}`, {
+        method: 'DELETE',
+      })
+
+      const updatedList = categories.filter((item) => item.id !== id)
+      setCategories(updatedList)
+
+      toast.error('Categoria apagada com sucesso!')
+    } catch (error) {
+      toast.error(
+        'Não foi possivél apagar. Entre em contato com o administrador.'
+      )
+    }
+  }
 
   const { titulo, cor } = values
 
@@ -80,6 +106,7 @@ function Categoria() {
             Limpar
           </Button>
         </ButtonCategory>
+        <ToastContainer position="top-right" autoClose={3000} />
       </form>
 
       {categories.length === 0 && (
@@ -109,7 +136,10 @@ function Categoria() {
                 </Td>
                 <Td>
                   <Button className="btn-delete">
-                    <MdDelete size={25} onClick={handleDelete} />
+                    <MdDelete
+                      size={25}
+                      onClick={() => handleDelete(category.id)}
+                    />
                   </Button>
                 </Td>
               </tr>
