@@ -48,12 +48,14 @@ function Categoria() {
     setValue(name, value)
   }
 
+  function handleDelete() {}
+
   const { titulo, cor } = values
 
   return (
     <PageDefault>
       <form onSubmit={handleSubmit}>
-        <h1>Nova categoria: {values.url}</h1>
+        <h1>Nova categoria</h1>
         <FormField
           id="titulo"
           label="Nome da Categoria"
@@ -115,7 +117,7 @@ function Categoria() {
                 </Td>
                 <Td>
                   <Button className="btn-delete">
-                    <MdDelete size={25} />
+                    <MdDelete size={25} onClick={handleDelete} />
                   </Button>
                 </Td>
               </tr>
@@ -158,6 +160,7 @@ const Td = styled.td`
     margin: 5px 15px 20px 0;
   }
 `
+
 const ButtonCategory = styled.div`
   .btn-salvar {
     background: var(--primary);
