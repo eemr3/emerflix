@@ -3,9 +3,11 @@ import styled from 'styled-components'
 import { MdDelete, MdModeEdit } from 'react-icons/md'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 
+import useForm from '../../../hooks'
 import PageDefault from '../../../components/PageDefault'
 import Button from '../../../components/Button'
 import FormField from '../../../components/FormField'
+
 function Categoria() {
   const initialValues = {
     titulo: '',
@@ -15,9 +17,8 @@ function Categoria() {
       url: '',
     },
   }
-
+  const { values, handleChange, clearForm } = useForm(initialValues)
   const [categories, setCategories] = useState([])
-  const [values, setValues] = useState(initialValues)
 
   const URL = window.location.hostname.includes('localhost')
     ? 'http://localhost:8080/categorias'
@@ -36,16 +37,7 @@ function Categoria() {
     event.preventDefault()
 
     setCategories([...categories, values])
-    setValues(initialValues)
-  }
-
-  function setValue(key, value) {
-    setValues({ ...values, [key]: value })
-  }
-
-  function handleChange(event) {
-    const { name, value } = event.target
-    setValue(name, value)
+    clearForm()
   }
 
   function handleDelete() {}
