@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { MdDelete, MdModeEdit } from 'react-icons/md'
+import PacmanLoader from 'react-spinners/PacmanLoader'
 
 import PageDefault from '../../../components/PageDefault'
 import Button from '../../../components/Button'
@@ -85,12 +87,19 @@ function Categoria() {
           </Button>
         </ButtonCategory>
       </form>
+
+      {categories.length === 0 && (
+        <Loading>
+          <PacmanLoader size={25} color={'#DC1A28'} />
+        </Loading>
+      )}
       <Table>
         <thead>
           <tr>
             <th>Titulo</th>
             <th>Descrião</th>
-            <th>Cor</th>
+            <Th>Editar</Th>
+            <Th>Apagar</Th>
           </tr>
         </thead>
         <tbody>
@@ -99,7 +108,16 @@ function Categoria() {
               <tr key={index}>
                 <td>{category.titulo}</td>
                 <td>{category.descricao}</td>
-                <td>{category.cor}</td>
+                <Td>
+                  <Button className="btn-edit">
+                    <MdModeEdit size={25} />
+                  </Button>
+                </Td>
+                <Td>
+                  <Button className="btn-delete">
+                    <MdDelete size={25} />
+                  </Button>
+                </Td>
               </tr>
             )
           })}
@@ -111,6 +129,35 @@ function Categoria() {
 
 export default Categoria
 
+const Loading = styled.div`
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+`
+
+const Th = styled.th`
+  text-align: center !important;
+`
+
+const Td = styled.td`
+  text-align: center !important;
+
+  .btn-delete {
+    background: var(--danger);
+    width: 80px;
+    height: 54px;
+    border: none;
+    margin: 5px 15px 20px 0;
+  }
+
+  .btn-edit {
+    background: var(--backEnd);
+    width: 80px;
+    height: 54px;
+    border: none;
+    margin: 5px 15px 20px 0;
+  }
+`
 const ButtonCategory = styled.div`
   .btn-salvar {
     background: var(--primary);
@@ -127,6 +174,7 @@ const ButtonCategory = styled.div`
     margin: 5px 15px 20px 0;
   }
 `
+
 const Table = styled.table`
   border: 1px solid #2a7ae4;
   border-collapse: collapse;
