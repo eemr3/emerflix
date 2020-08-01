@@ -195,70 +195,22 @@
       "url": "https://www.youtube.com/watch?v=JSapXD9vxYA"
     },
     {
-      "titulo": "Víedo padrao",
-      "url": "https://www.youtube.com/watch?v=jW1YdAb3GZo&feature=youtu.be",
+      "titulo": "API REST com Spring Webflux e MongoDB: parte1",
+      "url": "https://www.youtube.com/watch?v=cWvwjCObkxQ&feature=youtu.be",
       "categoriaId": 2,
       "id": 26
     },
     {
-      "titulo": "Víedo padrao",
-      "url": "https://www.youtube.com/watch?v=jW1YdAb3GZo&feature=youtu.be",
-      "categoriaId": 2,
-      "id": 30
-    },
-    {
-      "titulo": "Víedo padrao",
-      "url": "https://www.youtube.com/watch?v=jW1YdAb3GZo&feature=youtu.be",
-      "categoriaId": 1,
-      "id": 31
-    },
-    {
-      "titulo": "Homem de Ferro",
-      "url": "https://www.youtube.com/watch?v=jW1YdAb3GZo&feature=youtu.be",
-      "categoriaId": 1,
-      "id": 32
-    },
-    {
-      "titulo": "AMULETOS INÉDITOS NO MAJOR DE AGOSTO",
-      "url": "https://www.youtube.com/watch?v=sFJVvfginTs",
-      "categoriaId": 5,
-      "id": 33
-    },
-    {
-      "titulo": "A Justiceira",
-      "url": "https://youtu.be/ou_jea3czo8",
-      "categoriaId": 4,
-      "id": 34
-    },
-    {
-      "titulo": "OS ANIMES QUE MAIS GOSTEI ATÉ HOJE (Meu TOP Animes)",
-      "url": "https://www.youtube.com/watch?v=KybV-5Hvbow",
+      "titulo": "NANATSU ACABOU! FILHOS DO MELIODAS E BAN CONFIRMADOS",
+      "url": "https://www.youtube.com/watch?v=1qhjGqGGyg4",
       "categoriaId": 6,
-      "id": 35
+      "id": 27
     },
     {
-      "titulo": "OS 7 MELHORES ANIMES de TODOS OS TEMPOS",
-      "url": "https://www.youtube.com/watch?v=I9eMQ7IHlkE",
-      "categoriaId": 6,
-      "id": 36
-    },
-    {
-      "titulo": "Ja caiu FEDENDO!",
-      "url": "https://www.youtube.com/watch?v=66qOYP2F0M0",
-      "categoriaId": 5,
-      "id": 37
-    },
-    {
-      "titulo": "Eu nunca fiz essa pontuação na MD10",
-      "url": "https://www.youtube.com/watch?v=8Rh1I5BR3yc",
-      "categoriaId": 5,
-      "id": 38
-    },
-    {
-      "titulo": "SAITAMA DÁ SÓ TAPA DE QUALIDADE! One Punch Man 2 Ep. 3",
-      "url": "https://www.youtube.com/watch?v=3FT6c3Iobzo",
-      "categoriaId": 6,
-      "id": 39
+      "titulo": "O DOCE VENENO DA FOFOCA",
+      "url": "https://www.youtube.com/watch?v=IQEovunroTc",
+      "categoriaId": 7,
+      "id": 28
     }
   ]
 }
