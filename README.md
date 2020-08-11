@@ -24,7 +24,7 @@ ___
 
 ___
 
-<img src="https://readme-maker.herokuapp.com/uploads/04ab7b5e1930f6ab-React-App.jpg" width="1200">
+<img src="https://raw.githubusercontent.com/eemr3/imagens/master/React-App.jpg" width="1200">
 
 ## :information_source: Sobre
 
